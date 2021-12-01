@@ -34,3 +34,6 @@ class Item(BaseModel):
 async def create_item(item : Item):
     return item
 
+@app.get("/comment_s_appelle_la_femme_du_hamster")
+async def comment_s_appelle_la_femme_du_hamster():
+    return "Hamsterdam"
