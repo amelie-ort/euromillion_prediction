@@ -4,36 +4,34 @@ from pydantic import BaseModel
 from typing import Optional
 app = FastAPI()
 
+# information que je te donne en plus leo : 
+# le model ne doit pas etre réentrainer a chaque demarage de l'api mais seulement une fois, 
+# au meme niveau que les données je penses que tu pourrais mettre un fichier de configuration du model avec la sauvegrade
 
-class ModelName(str, Enum):
-    alexnet = "alexnet"
-    resnet = "resnet"
+# inisialisation of class model
+# (leo)
 
-@app.get('/')
-async def root():
-    return {"message":"hello world"}
+# this function represents a sequence of predicted winning numbers of the model
+@app.get('/api/perdit')
+async def get_predict():
+    return "1, 2, 3, 4, 5 | 6, 7"
 
-@app.get("/items/{item_id}")
-async def read_item(item_id : int):
-    return {"item_id": item_id}
+# this function gives the percentage of success and loss of the set of numbers proposed in parameter 
+@app.post('/api/perdit')
+async def post_predict(n1, n2, n3, n4, n5, e1, e2):
+    return f"fonction predit que {n1, n2, n3, n4, n5, e1, e2} a 50% de chance de gain et 50% de chance de perte"
 
-@app.get("/models/{model_name}")
-async def get_model(model_name : ModelName):
-    if model_name == ModelName.alexnet: 
-       return {"model_name": model_name} 
-    if model_name.value == "resnet":
-       return {"model_name": model_name} 
-    return {"model_name": model_name}
+# this function this function gives the characteristics of the predictive model
+@app.get('/api/model')
+async def get_model():
+    return "caracteristique qu model"
 
-class Item(BaseModel): 
-    name: int
-    description : Optional[str] = None
-    price: float
+# this function adds data to the model
+@app.put('/api/model/{data}')
+async def put_model(data):
+    return f"ajoute {data} au model"
 
-@app.post("/items/")
-async def create_item(item : Item):
-    return item
-
-@app.get("/comment_s_appelle_la_femme_du_hamster")
-async def comment_s_appelle_la_femme_du_hamster():
-    return "Hamsterdam"
+# this function entertains the model with the new data
+@app.post('/api/model/retrain')
+async def retrain():
+    return "nouvelle entrainement des données"
