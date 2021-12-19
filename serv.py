@@ -35,13 +35,12 @@ async def post_predict(n1, n2, n3, n4, n5, e1, e2):
 
 @app.get('/api/model')
 async def get_model():
-    """this function this function gives the characteristics of the predictive model"""
+    """this function this function gives the characteristics of the predictive model (score, name, params)"""
     return m.get_params()
 
 @app.put('/api/model/{data}')
 async def put_model(data):
-    """this function adds data to the model"""
-    
+    """this function adds data to the model, param : format : line of csv"""
     return f"ajoute {m.data_manager.add(data)} au model"
 
 # this function entertains the model with the new data

@@ -51,7 +51,7 @@ class IAModel:
 
     def get_params(self):
         """this function generates params of the model """
-        return get_score(), type(model).__name__, self.model.get_params()
+        return self.get_score(), type(self.model).__name__, self.model.get_params()
        
     def read_model(self):
         model_file = open("model.txt", "rb")
