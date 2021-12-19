@@ -4,17 +4,19 @@ from pydantic import BaseModel
 from typing import Optional
 app = FastAPI()
 
+from model.model import Model
+
 # information que je te donne en plus leo : 
 # le model ne doit pas etre réentrainer a chaque demarage de l'api mais seulement une fois, 
 # au meme niveau que les données je penses que tu pourrais mettre un fichier de configuration du model avec la sauvegrade
 
 # inisialisation of class model
-# (leo)
+m = Model()
 
 # this function represents a sequence of predicted winning numbers of the model
 @app.get('/api/perdit')
 async def get_predict():
-    return "1, 2, 3, 4, 5 | 6, 7"
+    return f"1, 2, 3, 4, 5 | 6, 7"
 
 # this function gives the percentage of success and loss of the set of numbers proposed in parameter 
 @app.post('/api/perdit')
